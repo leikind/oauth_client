@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to '/auth/github'
+    redirect_to(ENV['JURU'] ? '/auth/superclient' : '/auth/github')
   end
 
   def create

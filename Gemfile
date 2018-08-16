@@ -24,6 +24,7 @@ gem 'high_voltage'
 gem 'omniauth'
 # gem 'omniauth-twitter'
 gem 'omniauth-github'
+gem 'omniauth-oauth2-generic'
 group :development do
   gem 'better_errors'
   gem 'rails_layout'
