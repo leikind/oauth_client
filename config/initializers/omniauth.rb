@@ -17,8 +17,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       user_response_structure: {
         root_path: ['identity_id', 'email_address']
       },
-      name: 'superclient'
-
+      name: 'superclient',
+      failure_raise_out_environments: []
   else
     puts 'Authorization server: Github'
 
