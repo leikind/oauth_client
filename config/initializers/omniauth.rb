@@ -15,7 +15,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         token_url: 'http://localhost:4000/oauth/access_token'
       },
       user_response_structure: {
-        root_path: ['identity_id', 'email_address']
+        root_path: ['jurid', 'email_address']
       },
       name: 'superclient',
       failure_raise_out_environments: []
