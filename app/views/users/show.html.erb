@@ -15,6 +15,8 @@
 <%= debug @payload_access %>
 </p>
 
+<p>Expires at <%= @access_token_expires_at %></p>
+
 <h3>Refresh JWT</h3>
 
 <p><pre><%= @user.refresh_token %></pre></p>
@@ -26,3 +28,5 @@
 <p>JWT payload:
 <%= debug @payload_refresh %>
 </p>
+
+<p>Expires at <%= @refresh_token_expires_at %></p>
