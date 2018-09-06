@@ -1,2 +1,28 @@
 <h3>User</h3>
-<p>Name: <%= @user.name if @user.name %></p>
+<p>UID: <code><%= @user.name %></code></p>
+<p>Trust level: <code><%= @trust_level %></code></p>
+
+
+<h3>Access JWT</h3>
+
+<p><pre><%= @user.access_token %></pre></p>
+
+<p>JWT header:
+<%= debug @header_access %>
+</p>
+
+<p>JWT payload:
+<%= debug @payload_access %>
+</p>
+
+<h3>Refresh JWT</h3>
+
+<p><pre><%= @user.refresh_token %></pre></p>
+
+<p>JWT header:
+<%= debug @header_refresh %>
+</p>
+
+<p>JWT payload:
+<%= debug @payload_refresh %>
+</p>

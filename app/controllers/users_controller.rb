@@ -8,6 +8,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
 
+    header_header_access, payload_string_access, _signature   = @user.access_token.split('.')
+    header_header_refresh, payload_string_refresh, _signature = @user.refresh_token.split('.')
+
+    @payload_access = JSON.parse(Base64.decode64(payload_string_access))
+    @header_access  = JSON.parse(Base64.decode64(header_header_access))
+
+    @payload_refresh = JSON.parse(Base64.decode64(payload_string_refresh))
+    @header_refresh  = JSON.parse(Base64.decode64(header_header_refresh))
+
+    @trust_level = @payload_access['trust_level']
+  end
 end
