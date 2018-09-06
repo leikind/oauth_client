@@ -6,7 +6,7 @@ class User < ApplicationRecord
       user.provider = auth['provider']
       user.uid = auth['uid']
 
-      ap auth.to_hash
+      # ap auth.to_hash
 
       user.access_token = auth['credentials']['token']
       user.refresh_token = auth['credentials']['refresh_token']
