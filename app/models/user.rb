@@ -1,17 +1,32 @@
 class User < ApplicationRecord
 
+  class << self
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.provider = auth['provider']
-      user.uid = auth['uid']
+    def update_or_create(provider, uid, auth)
+      if already_existing_user = User.where(provider: provider, uid: uid.to_s).first
 
-      # ap auth.to_hash
+        already_existing_user.access_token = auth['credentials']['token']
+        already_existing_user.refresh_token = auth['credentials']['refresh_token']
+        already_existing_user.expires_at = Time.at(auth['credentials']['expires_at']).utc
 
-      user.access_token = auth['credentials']['token']
-      user.refresh_token = auth['credentials']['refresh_token']
-      user.expires_at = Time.at(auth['credentials']['expires_at']).utc
+        already_existing_user.save
+        already_existing_user
+      else
+        User.create_with_omniauth(auth)
+      end
     end
+
+    def create_with_omniauth(auth)
+      create! do |user|
+        user.provider = auth['provider']
+        user.uid = auth['uid']
+
+        user.access_token = auth['credentials']['token']
+        user.refresh_token = auth['credentials']['refresh_token']
+        user.expires_at = Time.at(auth['credentials']['expires_at']).utc
+      end
+    end
+
   end
 
 end

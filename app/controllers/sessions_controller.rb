@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env['omniauth.auth']
-    user = User.where(provider: auth['provider'], uid: auth['uid'].to_s).first || User.create_with_omniauth(auth)
+    user = User.update_or_create(auth['provider'], auth['uid'].to_s, auth)
     reset_session
     session[:user_id] = user.id
     redirect_to user_url(user), notice: 'Signed in!'
