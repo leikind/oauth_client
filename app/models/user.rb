@@ -7,34 +7,25 @@ class User < ApplicationRecord
     def update_or_create(provider, uid, auth)
 
       if already_existing_user = User.where(provider: provider, uid: uid.to_s).first
-
-        already_existing_user.access_token = auth['credentials']['token']
-        already_existing_user.refresh_token = auth['credentials']['refresh_token']
-        already_existing_user.expires_at = Time.at(auth['credentials']['expires_at']).utc
-        already_existing_user.authentications = auth['info']['authentications']
-
+        update_fields(already_existing_user, auth)
         already_existing_user.save
         already_existing_user
       else
-        User.create_with_omniauth(auth)
+        create! do |user|
+          user.provider = auth['provider']
+          user.uid = auth['uid']
+          update_fields(user, auth)
+        end
       end
     end
 
-    def create_with_omniauth(auth)
-      create! do |user|
-        user.provider = auth['provider']
-        user.uid = auth['uid']
-
-        user.access_token = auth['credentials']['token']
-        user.refresh_token = auth['credentials']['refresh_token']
-        user.expires_at = Time.at(auth['credentials']['expires_at']).utc
-
-        user.authentications = auth['info']['authentications']
-      end
+    def update_fields(user, auth)
+      user.access_token = auth['credentials']['token']
+      user.refresh_token = auth['credentials']['refresh_token']
+      user.expires_at = Time.at(auth['credentials']['expires_at']).utc
+      user.authentications = auth['info']['authentications']
     end
-
   end
-
 end
 
 __END__
