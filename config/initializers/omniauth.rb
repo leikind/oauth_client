@@ -16,7 +16,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       },
       user_response_structure: {
         id_path: 'jurid',
-        attributes: {jurid: 'jurid'}
+        attributes: {jurid: 'jurid', authentications: 'authentications'}
       },
       name: 'ocapi_workplace',
       failure_raise_out_environments: []

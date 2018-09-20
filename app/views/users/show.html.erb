@@ -2,6 +2,9 @@
 <p>UID: <code><%= @user.uid %></code></p>
 <p>Trust level: <code><%= @trust_level %></code></p>
 
+<h3>Authentications</h3>
+
+<p><pre><%= debug @user.authentications %></pre></p>
 
 <h3>Access JWT</h3>
 
