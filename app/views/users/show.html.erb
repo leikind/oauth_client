@@ -1,35 +1,81 @@
-<h3>Identity</h3>
-<p>UID: <code><%= @user.uid %></code></p>
-<p>Trust level: <code><%= @trust_level %></code></p>
+<div class="page-header">
+  <h3>Identity <%= @user.uid %></h3>
+</div>
 
-<h3>Authentications</h3>
+<div id="exTab2" class="container2">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a  href="#1" data-toggle="tab">Authentications</a>
+    </li>
+    <li>
+      <a href="#2" data-toggle="tab">Access Token</a>
+    </li>
+    <li>
+      <a href="#3" data-toggle="tab">Refresh Token</a>
+    </li>
+  </ul>
 
-<p><pre><%= debug @user.authentications %></pre></p>
+  <div class="tab-content ">
+    <div class="tab-pane active" id="1">
 
-<h3>Access JWT</h3>
+      <p><pre><%= debug @user.authentications %></pre></p>
 
-<p><pre><%= @user.access_token %></pre></p>
+    </div>
+    <div class="tab-pane" id="2">
 
-<p>JWT header:
-<%= debug @header_access %>
-</p>
+      <p>Trust level: <code><%= @trust_level %></code></p>
 
-<p>JWT payload:
-<%= debug @payload_access %>
-</p>
+      <p>Expires at <%= @access_token_expires_at %></p>
 
-<p>Expires at <%= @access_token_expires_at %></p>
+      <p><pre><%= @user.access_token %></pre></p>
 
-<h3>Refresh JWT</h3>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">JWT header</h3>
+        </div>
+        <div class="panel-body">
+          <%= debug @header_access %>
+        </div>
+      </div>
 
-<p><pre><%= @user.refresh_token %></pre></p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">JWT payload</h3>
+        </div>
+        <div class="panel-body">
+          <%= debug @payload_access %>
+        </div>
+      </div>
 
-<p>JWT header:
-<%= debug @header_refresh %>
-</p>
 
-<p>JWT payload:
-<%= debug @payload_refresh %>
-</p>
+    </div>
+    <div class="tab-pane" id="3">
 
-<p>Expires at <%= @refresh_token_expires_at %></p>
+      <p>Trust level: <code><%= @trust_level %></code></p>
+
+      <p>Expires at <%= @refresh_token_expires_at %></p>
+
+      <p><pre><%= @user.refresh_token %></pre></p>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">JWT header</h3>
+        </div>
+        <div class="panel-body">
+          <%= debug @header_refresh %>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">JWT payload</h3>
+        </div>
+        <div class="panel-body">
+          <%= debug @payload_refresh %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

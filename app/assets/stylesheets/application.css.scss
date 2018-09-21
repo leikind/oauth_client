@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  padding : 10px ;
+
+}
+
+main {
+  background-color: white;
+  padding-bottom: 80px;
+  width: 100%;
+  margin-top: 51px;
+}
+
+
+#exTab2 .tab-pane {
+  // color : white;
+  // background-color: #428bca;
+  padding-top : 15px;
+}
+
+.panel-body pre {
+  background-color: white;
+  border: none;
+}
