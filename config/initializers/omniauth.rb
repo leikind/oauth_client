@@ -1,10 +1,10 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   # provider :twitter, Rails.application.secrets.omniauth_provider_key, Rails.application.secrets.omniauth_provider_secret
 
+  BASE_JURID_URL = 'http://localhost:4000'
+
   if ENV['JURU']
     puts 'Authorization server: JURU Identity Engine'
-
-    BASE_JURID_URL = 'http://localhost:4000'
 
     provider :oauth2_generic,
       Rails.application.secrets.omniauth_provider_key,
