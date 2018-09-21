@@ -7,14 +7,14 @@ module UpdateUserAuthentications
 
   def update(user)
 
-    # uri = URI(USER_INFO_URL)
+    uri = BASE_JURID_URL + '/oauth/user'
 
     conn = Faraday.new
-    resp = conn.get(USER_INFO_URL, access_token: user.access_token)
+    resp = conn.get(uri, access_token: user.access_token)
 
-    authentications =  JSON.parse(resp.body)
-    # ap authentications
-    user.authentications = authentications
+    profile = JSON.parse(resp.body)
+    # ap profile
+    user.authentications = profile['authentications']
     user.save
     user
   end
