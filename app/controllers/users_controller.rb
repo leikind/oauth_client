@@ -7,7 +7,19 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def refresh_authentication
+    user = User.find(params[:id])
+    UpdateUserAuthentications.update(user)
+    redirect_to user_path(user)
+  end
+
   def show
+    prepare_user_render
+  end
+
+  private
+
+  def prepare_user_render
     @user = User.find(params[:id])
 
     header_header_access, payload_string_access, _signature   = @user.access_token.split('.')

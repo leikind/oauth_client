@@ -4,12 +4,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if ENV['JURU']
     puts 'Authorization server: JURI Identity Engine'
 
+    USER_INFO_URL = 'http://localhost:4000/oauth/user'
+
     provider :oauth2_generic,
       Rails.application.secrets.omniauth_provider_key,
       Rails.application.secrets.omniauth_provider_secret,
       client_options: {
         site: 'http://localhost:4000',
-        user_info_url: 'http://localhost:4000/oauth/user',
+        user_info_url: USER_INFO_URL,
 
         authorize_url: 'http://localhost:4000/oauth/authorize',
         token_url: 'http://localhost:4000/oauth/access_token'
