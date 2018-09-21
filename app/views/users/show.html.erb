@@ -8,10 +8,13 @@
       <a  href="#1" data-toggle="tab">Authentications</a>
     </li>
     <li>
-      <a href="#2" data-toggle="tab">Access Token</a>
+      <a href="#2" data-toggle="tab">Attributes</a>
     </li>
     <li>
-      <a href="#3" data-toggle="tab">Refresh Token</a>
+      <a href="#3" data-toggle="tab">Access Token</a>
+    </li>
+    <li>
+      <a href="#4" data-toggle="tab">Refresh Token</a>
     </li>
   </ul>
 
@@ -27,7 +30,43 @@
       <p><pre><%= debug @user.authentications %></pre></p>
 
     </div>
-    <div class="tab-pane" id="2">
+
+    <div class="tab-pane " id="2">
+
+      <div class="row">
+        <div class="col-lg-6">
+
+            <% @attributes.each do |k, v| %>
+              <form>
+                <div class="input-group j-input-group">
+                  <span class="input-group-addon" id="<%= k %>"><%= k %></span>
+                  <input class="form-control" id="<%= k %>" value="<%= v %>"  aria-describedby="<%= k %>" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                      <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+            <% end %>
+          </div>
+
+      </div>
+        <form>
+          <div class="input-group j-input-group">
+            <span class="input-group-addon" id="new">new</span>
+            <input class="form-control" id="new" value=""  aria-describedby="new" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+              </button>
+            </span>
+          </div>
+        </form>
+    </div>
+
+    <div class="tab-pane" id="3">
 
       <p>Trust level: <code><%= @trust_level %></code></p>
 
@@ -55,7 +94,7 @@
 
 
     </div>
-    <div class="tab-pane" id="3">
+    <div class="tab-pane" id="4">
 
       <p>Trust level: <code><%= @trust_level %></code></p>
 

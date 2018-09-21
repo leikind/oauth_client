@@ -35,5 +35,7 @@ class UsersController < ApplicationController
     @refresh_token_expires_at = Time.at(@payload_refresh['exp']).utc
 
     @trust_level = @payload_access['trust_level']
+
+    @attributes = GetIdentityAttributes.get(@user)
   end
 end
