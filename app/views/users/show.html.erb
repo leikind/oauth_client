@@ -4,24 +4,24 @@
 
 <div id="exTab2" class="container2">
   <ul class="nav nav-tabs">
-    <li class="active">
+    <li <%if @active_tab == 1 then %> class="active" <% end %>>
       <a  href="#1" data-toggle="tab">Authentications</a>
     </li>
-    <li>
+    <li <%if @active_tab == 2 then %> class="active" <% end %>>
       <a href="#2" data-toggle="tab">Attributes</a>
     </li>
-    <li>
+    <li <%if @active_tab == 3 then %> class="active" <% end %>>
       <a href="#3" data-toggle="tab">Access Token</a>
     </li>
-    <li>
+    <li <%if @active_tab == 4 then %> class="active" <% end %>>
       <a href="#4" data-toggle="tab">Refresh Token</a>
     </li>
   </ul>
 
   <div class="tab-content ">
-    <div class="tab-pane active" id="1">
+    <div class="tab-pane <%if @active_tab == 1 then %>active<% end %>" id="1">
 
-      <%= form_for(@user, as: :user, url: refresh_authentication_user_path(@user), html: { method: :put }) do |f| %>
+      <%= form_for(@user, url: refresh_authentication_user_path(@user), html: { method: :put }) do |f| %>
         <button type="submit" class="btn btn-default" aria-label="Left Align">
           <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
         </button>
@@ -31,42 +31,46 @@
 
     </div>
 
-    <div class="tab-pane " id="2">
+    <div class="tab-pane <%if @active_tab == 2 then %>active<% end %>" id="2">
 
       <div class="row">
         <div class="col-lg-6">
-
-            <% @attributes.each do |k, v| %>
-              <form>
-                <div class="input-group j-input-group">
-                  <span class="input-group-addon" id="<%= k %>"><%= k %></span>
-                  <input class="form-control" id="<%= k %>" value="<%= v %>"  aria-describedby="<%= k %>" />
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                      <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-                    </button>
-                  </span>
-                </div>
-              </form>
-
+          <% @attributes.each do |k, v| %>
+            <%= form_for(@user, url: update_attribute_user_path(@user), html: { method: :put }) do |f| %>
+              <div class="input-group j-input-group">
+                <input type="hidden" name="key" value="<%= k %>" />
+                <span class="input-group-addon" id="<%= k %>"><%= k %></span>
+                <input class="form-control" name="val" id="<%= k %>" value="<%= v %>"  aria-describedby="<%= k %>" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                  </button>
+                </span>
+              </div>
             <% end %>
-          </div>
 
+          <% end %>
+        </div>
       </div>
-        <form>
-          <div class="input-group j-input-group">
-            <span class="input-group-addon" id="new">new</span>
-            <input class="form-control" id="new" value=""  aria-describedby="new" />
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">
-                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-              </button>
-            </span>
-          </div>
-        </form>
+
+      <!--form class="form-inline" action="/action_page.php"-->
+      <%= form_for(@user, url: update_attribute_user_path(@user), html: { method: :put, class: "form-inline" }) do |f| %>
+        <div class="form-group">
+          <label for="email">Name</label>
+          <input type="input" name="key" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Value</label>
+          <input type="input" name="val" class="form-control" id="pwd">
+        </div>
+        <button type="submit" class="btn btn-default">
+          Submit new attribute
+          <span class="glyphicon glyphicon-share-alt"></span>
+        </button>
+      <% end %>
     </div>
 
-    <div class="tab-pane" id="3">
+    <div class="tab-pane <%if @active_tab == 3 then %>active<% end %>" id="3">
 
       <p>Trust level: <code><%= @trust_level %></code></p>
 
@@ -94,7 +98,7 @@
 
 
     </div>
-    <div class="tab-pane" id="4">
+    <div class="tab-pane <%if @active_tab == 4 then %>active<% end %>" id="4">
 
       <p>Trust level: <code><%= @trust_level %></code></p>
 

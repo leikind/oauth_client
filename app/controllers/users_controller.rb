@@ -8,9 +8,17 @@ class UsersController < ApplicationController
   end
 
   def refresh_authentication
-    user = User.find(params[:id])
-    UpdateUserAuthentications.update(user)
-    redirect_to user_path(user)
+    find_user
+    UpdateUserAuthentications.update(@user)
+    redirect_to user_path(@user)
+  end
+
+  def update_attribute
+    find_user
+    UpdateAttribute.update(@user, params[:key], params[:val])
+    # p params[:key]
+    # p params[:val]
+    redirect_to user_path(@user.id, t: 2)
   end
 
   def show
@@ -19,8 +27,15 @@ class UsersController < ApplicationController
 
   private
 
-  def prepare_user_render
+  def find_user
     @user = User.find(params[:id])
+  end
+
+  def prepare_user_render
+    find_user
+
+    @active_tab = params['t'] ? params['t'].to_i : 1
+    @active_tab = 1 unless [1, 2, 3, 4].index(@active_tab)
 
     header_header_access, payload_string_access, _signature   = @user.access_token.split('.')
     header_header_refresh, payload_string_refresh, _signature = @user.refresh_token.split('.')
