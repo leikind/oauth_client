@@ -21,11 +21,24 @@
   <div class="tab-content ">
     <div class="tab-pane <%if @active_tab == 1 then %>active<% end %>" id="1">
 
-      <%= form_for(@user, url: refresh_authentication_user_path(@user), html: { method: :put }) do |f| %>
-        <button type="submit" class="btn btn-default" aria-label="Left Align">
-          <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-        </button>
-      <% end %>
+      <div style="float: left">
+        <%= form_for(@user, url: refresh_authentication_user_path(@user), html: { method: :put }) do |f| %>
+          <button type="submit" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </div>
+      <div style="float: left; margin-left:5px">
+        <%= form_for(@user, url: move_authentication_to_user_path(@user), html: { method: :post }) do |f| %>
+          <button type="submit" class="btn btn-default" aria-label="Left Align">
+            Sign in and add the authentication <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </div>
+
+      <div style="clear: both">
+      </div>
+
 
       <p><pre><%= debug @user.authentications %></pre></p>
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     member do
       put :refresh_authentication
       put :update_attribute
+      post :move_authentication_to
     end
 
   end
