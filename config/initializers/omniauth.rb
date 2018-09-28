@@ -3,33 +3,23 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
   BASE_JURID_URL = 'http://localhost:4000'
 
-  if ENV['JURU']
-    puts 'Authorization server: JURU Identity Engine'
+  provider :oauth2_generic,
+    Rails.application.secrets.omniauth_provider_key,
+    Rails.application.secrets.omniauth_provider_secret,
+    client_options: {
+      site: BASE_JURID_URL,
+      user_info_url: BASE_JURID_URL + '/oauth/user',
 
-    provider :oauth2_generic,
-      Rails.application.secrets.omniauth_provider_key,
-      Rails.application.secrets.omniauth_provider_secret,
-      client_options: {
-        site: BASE_JURID_URL,
-        user_info_url: BASE_JURID_URL + '/oauth/user',
+      authorize_url: BASE_JURID_URL + '/oauth/authorize',
+      token_url: BASE_JURID_URL + '/oauth/access_token'
+    },
+    user_response_structure: {
+      id_path: 'jurid',
+      attributes: {jurid: 'jurid', authentications: 'authentications'}
+    },
+    name: 'ocapi_workplace',
+    failure_raise_out_environments: []
 
-        authorize_url: BASE_JURID_URL + '/oauth/authorize',
-        token_url: BASE_JURID_URL + '/oauth/access_token'
-      },
-      user_response_structure: {
-        id_path: 'jurid',
-        attributes: {jurid: 'jurid', authentications: 'authentications'}
-      },
-      name: 'ocapi_workplace',
-      failure_raise_out_environments: []
-  else
-    puts 'Authorization server: Github'
-
-    provider :github,
-      Rails.application.secrets.omniauth_provider_key,
-      Rails.application.secrets.omniauth_provider_secret
-
-  end
 end
 
 __END__

@@ -16,7 +16,7 @@ gem 'high_voltage'
 
 gem 'omniauth'
 # gem 'omniauth-twitter'
-gem 'omniauth-github'
+# gem 'omniauth-github'
 gem 'omniauth-oauth2-generic'
 
 group :development, :test do

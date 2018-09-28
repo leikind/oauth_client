@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to(ENV['JURU'] ? '/auth/ocapi_workplace' : '/auth/github')
+    redirect_to '/auth/ocapi_workplace'
   end
 
   def create
