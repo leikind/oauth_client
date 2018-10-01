@@ -2,8 +2,12 @@ module CreateUser
 
   module_function
 
-  def update_or_create(provider, uid, auth)
-    if already_existing_user = User.where(provider: provider, uid: uid.to_s).first
+  def update_or_create(provider, uid, auth, session_token)
+    if already_existing_user = User.where(
+      provider: provider,
+      uid: uid.to_s,
+      session_token: session_token
+    ).first
       update_fields(already_existing_user, auth)
       already_existing_user.save
       already_existing_user
@@ -11,6 +15,7 @@ module CreateUser
       User.create! do |user|
         user.provider = auth['provider']
         user.uid = auth['uid']
+        user.session_token = session_token
         update_fields(user, auth)
       end
     end

@@ -1,26 +1,24 @@
 class UsersController < ApplicationController
 
+  before_action :find_user, except: :index
   # before_action :authenticate_user!
   # before_action :correct_user?, except: [:index]
 
   def index
-    @users = User.all
+    @users = User.where(session_token: @session_token).all
   end
 
   def refresh_authentication
-    find_user
     UpdateUserAuthentications.update(@user)
     redirect_to user_path(@user), notice: 'Authentications updated'
   end
 
   def update_attribute
-    find_user
     UpdateAttribute.update(@user, params[:key], params[:val])
     redirect_to user_path(@user.id, t: 2), notice: 'Attribute updated'
   end
 
   def move_authentication_to
-    find_user
     session[:move_to] = @user.id
     redirect_to signin_path
   end
@@ -30,21 +28,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    find_user
     @user.destroy
     redirect_to users_path, notice: 'Deleted'
   end
 
-
   private
 
   def find_user
-    @user = User.find(params[:id])
+    unless @user = User.where(session_token: @session_token, id: params[:id]).first
+      redirect_to users_path
+      return false
+    end
   end
 
   def prepare_user_render
-    find_user
-
     @active_tab = params['t'] ? params['t'].to_i : 1
     @active_tab = 1 unless [1, 2, 3, 4].index(@active_tab)
 

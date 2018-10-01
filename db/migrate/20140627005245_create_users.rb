@@ -9,8 +9,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :refresh_token
       t.datetime :expires_at
 
-      t.string :users, :authentications
-
+      t.string :session_token
+      t.string :authentications
       t.timestamps
     end
   end
