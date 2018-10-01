@@ -29,6 +29,13 @@ class UsersController < ApplicationController
     prepare_user_render
   end
 
+  def destroy
+    find_user
+    @user.destroy
+    redirect_to users_path, notice: 'Deleted'
+  end
+
+
   private
 
   def find_user

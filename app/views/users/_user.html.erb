@@ -1,5 +1,12 @@
 <td><%= link_to user.uid, user %></td>
 <td>
   <pre><%= user.authentications %></pre>
+</td>
 
+<td>
+  <%= form_for(user, url: user_path(user), html: { method: :delete, onsubmit: "return confirm('Are you sure?')" }) do |f| %>
+    <button type="submit" class="btn btn-default" aria-label="Left Align">
+      <span class="glyphicon glyphicon-remove-circle text-danger" aria-hidden="true"></span>
+    </button>
+  <% end %>
 </td>
