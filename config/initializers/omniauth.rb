@@ -1,17 +1,16 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  # provider :twitter, Rails.application.secrets.omniauth_provider_key, Rails.application.secrets.omniauth_provider_secret
 
-  BASE_JURID_URL = 'http://localhost:4000'
+  BASE_IDP_URL = Rails.application.secrets.base_idp_url
 
   provider :oauth2_generic,
     Rails.application.secrets.omniauth_provider_key,
     Rails.application.secrets.omniauth_provider_secret,
     client_options: {
-      site: BASE_JURID_URL,
-      user_info_url: BASE_JURID_URL + '/oauth/user',
+      site: BASE_IDP_URL,
+      user_info_url: BASE_IDP_URL + '/oauth/user',
 
-      authorize_url: BASE_JURID_URL + '/oauth/authorize',
-      token_url: BASE_JURID_URL + '/oauth/access_token'
+      authorize_url: BASE_IDP_URL + '/oauth/authorize',
+      token_url: BASE_IDP_URL + '/oauth/access_token'
     },
     user_response_structure: {
       id_path: 'jurid',
