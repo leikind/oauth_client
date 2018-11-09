@@ -7,7 +7,7 @@ module GetIdentityAttributes
 
   def get(user)
 
-    uri = BASE_JURID_URL + '/api/identities/' + user.uid + '/attributes'
+    uri = BASE_IDP_URL + '/api/identities/' + user.uid + '/attributes'
 
     conn = Faraday.new(url: uri)
     resp = conn.get do |req|

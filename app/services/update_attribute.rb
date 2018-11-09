@@ -8,7 +8,7 @@ module UpdateAttribute
   def update(user, key, value)
 
     escaped_key = CGI.escape(key)
-    uri = "#{BASE_JURID_URL}/api/identities/#{user.uid}/attributes/#{escaped_key}"
+    uri = "#{BASE_IDP_URL}/api/identities/#{user.uid}/attributes/#{escaped_key}"
 
     conn = Faraday.new(url: uri)
 

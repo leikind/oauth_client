@@ -7,7 +7,7 @@ module UpdateUserAuthentications
 
   def update(user)
 
-    uri = BASE_JURID_URL + '/oauth/user'
+    uri = BASE_IDP_URL + '/oauth/user'
 
     conn = Faraday.new
     resp = conn.get(uri, access_token: user.access_token)

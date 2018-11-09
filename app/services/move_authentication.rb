@@ -11,7 +11,7 @@ module MoveAuthentication
 
   def do_move(auth_type, auth_uid, from_jurid_token, to_jurid_token)
 
-    uri = BASE_JURID_URL + '/api/authentications'
+    uri = BASE_IDP_URL + '/api/authentications'
 
     conn = Faraday.new(url: uri)
     conn.put do |req|
