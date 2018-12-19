@@ -1,4 +1,8 @@
-Run:
+Install bundler:
+
+    gem install bundler
+
+Run in the application directory:
 
     bundle install
 
